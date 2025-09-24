@@ -9,7 +9,7 @@ module=""
 command_dict = {
     "load": "Commands/load.py",
 }
-module_list = ["portscan"]
+module_list = ["portscan","filesystem"]
 
 # Colors for Console Output
 RED = '\033[91m'
@@ -26,7 +26,7 @@ def default_line(module:str)->str:
     if module == "":
         return f"{GREEN} ${BLUE}>{RESET}"
     else:
-        return f"{RED}"+module+f"{GREEN}${BLUE}>{RESET}"
+        return f"{RED} "+module+f"{GREEN}${BLUE}>{RESET}"
 
 
 
@@ -46,21 +46,17 @@ if __name__ == "__main__":
             if module == "":
                 try:
                     user_input_split = user_input.split(" ")
+                    choosen_module = user_input_split[1]
                     choosen_command = user_input_split[0]
                     if choosen_command in command_dict.keys():
-                        try:
-                            choosen_module = user_input_split[1]
-                            if choosen_module in module_list:
-                                module = choosen_module
-                                print(f"Module {module} loaded")
-                                subprocess.run(["python", f"./MOdule/{module}.py"])
-                            else:
-                                print("Unknown module")
-                                continue
-                        except IndexError:
-                            print("Unknown command")
-                            continue
-                            
+                        choosen_module = user_input_split[1]
+                        if choosen_module in module_list:
+                            module = choosen_module
+                            print(f"Module {module} loaded")
+                            subprocess.run(["python", f"./Module/{module}.py"], check=True)
+                        else:
+                            print("Unknown module")
+                            continue            
                     else:
                         print("Unknown command")
                         continue
@@ -69,4 +65,4 @@ if __name__ == "__main__":
                     print("Error processing input")
                     continue
             else:
-                print("Error processing input")
+                print("Very strange error processing input")
