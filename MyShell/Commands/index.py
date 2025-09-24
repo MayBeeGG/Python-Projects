@@ -7,4 +7,3 @@ class Command:
         self.description = description
         self.suggestions = suggestions # add suggestion logic
 
-    
